@@ -2,15 +2,62 @@
 <html lang="es">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Biodiversidad Magallanes AR</title>
+    <title>MemorizAR - Keikruk</title>
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <style>
-      body { margin: 0; overflow: hidden; }
+      body { 
+        margin: 0; 
+        overflow: hidden; 
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+
+      /* Panel de información fijo en la pantalla */
+      #info-card {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 88%;
+        max-width: 380px;
+        background: rgba(11, 27, 43, 0.92);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(8px);
+        color: #ffffff;
+        padding: 16px 20px;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+        z-index: 1000;
+        display: none; /* Se oculta por defecto hasta detectar una carta */
+        box-sizing: border-box;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+      }
+
+      #info-card h3 {
+        margin: 0 0 6px 0;
+        font-size: 1.15rem;
+        letter-spacing: 0.5px;
+        color: #64b5f6;
+        text-transform: uppercase;
+      }
+
+      #info-card p {
+        margin: 0;
+        font-size: 0.95rem;
+        line-height: 1.4;
+        color: #e0e0e0;
+      }
     </style>
   </head>
   <body>
-    <!-- maxTrack: 2 permite comparar dos cartas simultáneas en el memorice -->
+
+    <!-- Panel 2D superpuesto en el visor del celular -->
+    <div id="info-card">
+      <h3 id="card-title">Especie</h3>
+      <p id="card-desc">Descripción de la biodiversidad.</p>
+    </div>
+
     <a-scene 
       mindar-image="imageTargetSrc: ./targets.mind; maxTrack: 2;" 
       color-space="sRGB" 
@@ -18,7 +65,6 @@
       vr-mode-ui="enabled: false" 
       device-orientation-permission-ui="enabled: false">
       
-      <!-- CARGA DE MODELOS 3D -->
       <a-assets>
         <a-asset-item id="mod-guanaco" src="./guanaco.glb"></a-asset-item>
         <a-asset-item id="mod-nirre" src="./nirre.glb"></a-asset-item>
@@ -41,149 +87,127 @@
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
       <!-- 0: GUANACO -->
-      <a-entity mindar-image-target="targetIndex: 0">
-        <a-gltf-model src="#mod-guanaco" position="0 0 0.15" scale="1 1 1" rotation="90 0 0"></a-gltf-model>
-        <a-entity position="0 -0.45 0.15">
-          <a-plane color="#0b1b2b" opacity="0.85" width="1.1" height="0.4"></a-plane>
-          <a-text value="GUANACO\nMamifero autoctono de la estepa.\nHerbivoro de gran agilidad." align="center" color="#ffffff" width="1.8" position="0 0 0.02"></a-text>
-        </a-entity>
+      <a-entity mindar-image-target="targetIndex: 0" data-species="0">
+        <a-gltf-model src="#mod-guanaco" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 1: NIRRE -->
-      <a-entity mindar-image-target="targetIndex: 1">
-        <a-gltf-model src="#mod-nirre" position="0 0 0.15" scale="1 1 1" rotation="90 0 0"></a-gltf-model>
-        <a-entity position="0 -0.45 0.15">
-          <a-plane color="#0b1b2b" opacity="0.85" width="1.1" height="0.4"></a-plane>
-          <a-text value="NIRRE\nArbol nativo del bosque patagonico.\nResistente a los vientos australes." align="center" color="#ffffff" width="1.8" position="0 0 0.02"></a-text>
-        </a-entity>
+      <a-entity mindar-image-target="targetIndex: 1" data-species="1">
+        <a-gltf-model src="#mod-nirre" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 2: ZAPATITO DE LA VIRGEN -->
-      <a-entity mindar-image-target="targetIndex: 2">
-        <a-gltf-model src="#mod-zapatito" position="0 0 0.15" scale="1 1 1" rotation="90 0 0"></a-gltf-model>
-        <a-entity position="0 -0.45 0.15">
-          <a-plane color="#0b1b2b" opacity="0.85" width="1.1" height="0.4"></a-plane>
-          <a-text value="ZAPATITO DE LA VIRGEN\nFlor nativa de color amarillo brillante.\nHabita en zonas humedas y faldeos." align="center" color="#ffffff" width="1.8" position="0 0 0.02"></a-text>
-        </a-entity>
+      <a-entity mindar-image-target="targetIndex: 2" data-species="2">
+        <a-gltf-model src="#mod-zapatito" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 3: LUPINO -->
-      <a-entity mindar-image-target="targetIndex: 3">
-        <a-gltf-model src="#mod-lupino" position="0 0 0.15" scale="1 1 1" rotation="90 0 0"></a-gltf-model>
-        <a-entity position="0 -0.45 0.15">
-          <a-plane color="#0b1b2b" opacity="0.85" width="1.1" height="0.4"></a-plane>
-          <a-text value="LUPINO\nEspecie de vistosas flores azulejas.\nComun en bordes de caminos australes." align="center" color="#ffffff" width="1.8" position="0 0 0.02"></a-text>
-        </a-entity>
+      <a-entity mindar-image-target="targetIndex: 3" data-species="3">
+        <a-gltf-model src="#mod-lupino" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 4: CANELO -->
-      <a-entity mindar-image-target="targetIndex: 4">
-        <a-gltf-model src="#mod-canelo" position="0 0 0.15" scale="1 1 1" rotation="90 0 0"></a-gltf-model>
-        <a-entity position="0 -0.45 0.15">
-          <a-plane color="#0b1b2b" opacity="0.85" width="1.1" height="0.4"></a-plane>
-          <a-text value="CANELO\nArbol sagrado del pueblo mapuche.\nCorteza aromatica y uso medicinal." align="center" color="#ffffff" width="1.8" position="0 0 0.02"></a-text>
-        </a-entity>
+      <a-entity mindar-image-target="targetIndex: 4" data-species="4">
+        <a-gltf-model src="#mod-canelo" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 5: CHILCO -->
-      <a-entity mindar-image-target="targetIndex: 5">
-        <a-gltf-model src="#mod-chilco" position="0 0 0.15" scale="1 1 1" rotation="90 0 0"></a-gltf-model>
-        <a-entity position="0 -0.45 0.15">
-          <a-plane color="#0b1b2b" opacity="0.85" width="1.1" height="0.4"></a-plane>
-          <a-text value="CHILCO\nArbusto nativo con flores fucsia.\nPolinizado por el picaflor rubi." align="center" color="#ffffff" width="1.8" position="0 0 0.02"></a-text>
-        </a-entity>
+      <a-entity mindar-image-target="targetIndex: 5" data-species="5">
+        <a-gltf-model src="#mod-chilco" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 6: CALAFATE -->
-      <a-entity mindar-image-target="targetIndex: 6">
-        <a-gltf-model src="#mod-calafate" position="0 0 0.15" scale="1 1 1" rotation="90 0 0"></a-gltf-model>
-        <a-entity position="0 -0.45 0.15">
-          <a-plane color="#0b1b2b" opacity="0.85" width="1.1" height="0.4"></a-plane>
-          <a-text value="CALAFATE\nArbusto espinoso con frutos morados.\nSimbolo vegetal de Magallanes." align="center" color="#ffffff" width="1.8" position="0 0 0.02"></a-text>
-        </a-entity>
+      <a-entity mindar-image-target="targetIndex: 6" data-species="6">
+        <a-gltf-model src="#mod-calafate" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 7: ARMADILLO -->
-      <a-entity mindar-image-target="targetIndex: 7">
-        <a-gltf-model src="#mod-armadillo" position="0 0 0.15" scale="1 1 1" rotation="90 0 0"></a-gltf-model>
-        <a-entity position="0 -0.45 0.15">
-          <a-plane color="#0b1b2b" opacity="0.85" width="1.1" height="0.4"></a-plane>
-          <a-text value="PELUDO / ARMADILLO\nMamifero con caparazon oseo.\nHabita madrigueras en la estepa." align="center" color="#ffffff" width="1.8" position="0 0 0.02"></a-text>
-        </a-entity>
+      <a-entity mindar-image-target="targetIndex: 7" data-species="7">
+        <a-gltf-model src="#mod-armadillo" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 8: LOBO MARINO -->
-      <a-entity mindar-image-target="targetIndex: 8">
-        <a-gltf-model src="#mod-lobo" position="0 0 0.15" scale="1 1 1" rotation="90 0 0"></a-gltf-model>
-        <a-entity position="0 -0.45 0.15">
-          <a-plane color="#0b1b2b" opacity="0.85" width="1.1" height="0.4"></a-plane>
-          <a-text value="LOBO MARINO\nMamifero adaptado al mar austral.\nDescansa en colonias costeras." align="center" color="#ffffff" width="1.8" position="0 0 0.02"></a-text>
-        </a-entity>
+      <a-entity mindar-image-target="targetIndex: 8" data-species="8">
+        <a-gltf-model src="#mod-lobo" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
-      <!-- 9: CARPINTERO NEGRO -->
-      <a-entity mindar-image-target="targetIndex: 9">
-        <a-gltf-model src="#mod-carpintero" position="0 0 0.15" scale="1 1 1" rotation="90 0 0"></a-gltf-model>
-        <a-entity position="0 -0.45 0.15">
-          <a-plane color="#0b1b2b" opacity="0.85" width="1.1" height="0.4"></a-plane>
-          <a-text value="CARPINTERO NEGRO\nEl ave carpintera mas grande de Chile.\nHabita bosques antiguos de coigue." align="center" color="#ffffff" width="1.8" position="0 0 0.02"></a-text>
-        </a-entity>
+      <!-- 9: CARPINTERO NEGRO (Escala reducida para corregir desproporción) -->
+      <a-entity mindar-image-target="targetIndex: 9" data-species="9">
+        <a-gltf-model src="#mod-carpintero" position="0 0 0.1" scale="0.35 0.35 0.35" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 10: CHINGUE -->
-      <a-entity mindar-image-target="targetIndex: 10">
-        <a-gltf-model src="#mod-chingue" position="0 0 0.15" scale="1 1 1" rotation="90 0 0"></a-gltf-model>
-        <a-entity position="0 -0.45 0.15">
-          <a-plane color="#0b1b2b" opacity="0.85" width="1.1" height="0.4"></a-plane>
-          <a-text value="CHINGUE PATAGONICO\nPequeno carnívoro de habitos nocturnos.\nSe defiende con fluido oloroso." align="center" color="#ffffff" width="1.8" position="0 0 0.02"></a-text>
-        </a-entity>
+      <a-entity mindar-image-target="targetIndex: 10" data-species="10">
+        <a-gltf-model src="#mod-chingue" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
-      <!-- 11: ZORRO -->
-      <a-entity mindar-image-target="targetIndex: 11">
-        <a-gltf-model src="#mod-zorro" position="0 0 0.15" scale="1 1 1" rotation="90 0 0"></a-gltf-model>
-        <a-entity position="0 -0.45 0.15">
-          <a-plane color="#0b1b2b" opacity="0.85" width="1.1" height="0.4"></a-plane>
-          <a-text value="ZORRO CULPEO\nEl canido silvestre mas grande de Chile.\nCazador solitario y oportunista." align="center" color="#ffffff" width="1.8" position="0 0 0.02"></a-text>
-        </a-entity>
+      <!-- 11: ZORRO (Escalado aumentado para ocupar la tarjeta completa) -->
+      <a-entity mindar-image-target="targetIndex: 11" data-species="11">
+        <a-gltf-model src="#mod-zorro" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 12: CONDOR -->
-      <a-entity mindar-image-target="targetIndex: 12">
-        <a-gltf-model src="#mod-condor" position="0 0 0.15" scale="1 1 1" rotation="90 0 0"></a-gltf-model>
-        <a-entity position="0 -0.45 0.15">
-          <a-plane color="#0b1b2b" opacity="0.85" width="1.1" height="0.4"></a-plane>
-          <a-text value="CONDOR ANDINO\nAve voladora imponente de los Andes.\nCarronero esencial del ecosistema." align="center" color="#ffffff" width="1.8" position="0 0 0.02"></a-text>
-        </a-entity>
+      <a-entity mindar-image-target="targetIndex: 12" data-species="12">
+        <a-gltf-model src="#mod-condor" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 13: BALLENA -->
-      <a-entity mindar-image-target="targetIndex: 13">
-        <a-gltf-model src="#mod-ballena" position="0 0 0.35" scale="0.08 0.08 0.08" rotation="90 0 0"></a-gltf-model>
-        <a-entity position="0 -0.45 0.15">
-          <a-plane color="#0b1b2b" opacity="0.85" width="1.1" height="0.4"></a-plane>
-          <a-text value="BALLENA FRANCA AUSTRAL\nMonumento natural de Chile.\nHabita los fiordos y canales magallanicos." align="center" color="#ffffff" width="1.8" position="0 0 0.02"></a-text>
-        </a-entity>
+      <a-entity mindar-image-target="targetIndex: 13" data-species="13">
+        <a-gltf-model src="#mod-ballena" position="0 0 0.25" scale="0.1 0.1 0.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 14: PUMA -->
-      <a-entity mindar-image-target="targetIndex: 14">
-        <a-gltf-model src="#mod-puma" position="0 0 0.15" scale="1 1 1" rotation="90 0 0"></a-gltf-model>
-        <a-entity position="0 -0.45 0.15">
-          <a-plane color="#0b1b2b" opacity="0.85" width="1.1" height="0.4"></a-plane>
-          <a-text value="PUMA\nEl mayor felino de la Patagonia.\nDepredador tope de gran sigilo." align="center" color="#ffffff" width="1.8" position="0 0 0.02"></a-text>
-        </a-entity>
+      <a-entity mindar-image-target="targetIndex: 14" data-species="14">
+        <a-gltf-model src="#mod-puma" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 15: PINGUINO -->
-      <a-entity mindar-image-target="targetIndex: 15">
-        <a-gltf-model src="#mod-pinguino" position="0 0 0.15" scale="1 1 1" rotation="90 0 0"></a-gltf-model>
-        <a-entity position="0 -0.45 0.15">
-          <a-plane color="#0b1b2b" opacity="0.85" width="1.1" height="0.4"></a-plane>
-          <a-text value="PINGUINO DE MAGALLANES\nAve marina de vuelo submarino.\nNidifica en colonias costeras australes." align="center" color="#ffffff" width="1.8" position="0 0 0.02"></a-text>
-        </a-entity>
+      <a-entity mindar-image-target="targetIndex: 15" data-species="15">
+        <a-gltf-model src="#mod-pinguino" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
     </a-scene>
+
+    <!-- CONTROLADOR JAVASCRIPT DEL PANEL 2D -->
+    <script>
+      const speciesData = {
+        0: { title: "Guanaco", desc: "Mamífero autóctono de la estepa patagónica. Herbívoro de gran velocidad y agilidad." },
+        1: { title: "Ñirre", desc: "Árbol nativo del bosque austral. Altamente adaptado a los fuertes vientos patagónicos." },
+        2: { title: "Zapatito de la Virgen", desc: "Flor nativa con llamativas tonalidades amarillas. Crece en faldas y zonas húmedas." },
+        3: { title: "Lupino", desc: "Especie de vistosas flores azulejas, ampliamente extendida en bordes de caminos australes." },
+        4: { title: "Canelo", desc: "Árbol sagrado del pueblo mapuche. Posee corteza aromática y reconocidas propiedades curativas." },
+        5: { title: "Chilco", desc: "Arbusto nativo con flores fucsia colgantes, polinizadas principalmente por el picaflor rubí." },
+        6: { title: "Calafate", desc: "Arbusto espinoso de frutos morados. Símbolo e insignia vegetal de la Región de Magallanes." },
+        7: { title: "Armadillo / Peludo", desc: "Mamífero con coraza protectora ósea. Construye madrigueras subterráneas en la estepa." },
+        8: { title: "Lobo Marino", desc: "Mamífero adaptado a las aguas australes. Descansa en colonias a lo largo de las costas y fiordos." },
+        9: { title: "Carpintero Negro", desc: "El ave carpintera más grande de Chile. Habita en bosques antiguos de lengas y coigües." },
+        10: { title: "Chingue Patagónico", desc: "Pequeño carnívoro de hábitos nocturnos. Se defiende expulsando un líquido de fuerte olor." },
+        11: { title: "Zorro Culpeo", desc: "El cánido silvestre más grande del territorio chileno. Cazador solitario y oportunista." },
+        12: { title: "Cóndor Andino", desc: "Ame imponente que surca los cielos cordilleranos. Carroñero fundamental para el equilibrio ecológico." },
+        13: { title: "Ballena Franca Austral", desc: "Monumento natural marino. Frecuenta las aguas del Estrecho de Magallanes y canales fueguinos." },
+        14: { title: "Puma", desc: "El felino más grande de la Patagonia. Depredador tope de hábitos sigilosos y gran fuerza." },
+        15: { title: "Pingüino de Magallanes", desc: "Ave marina experta en el buceo submarino. Forma nutridas colonias reproductivas en islas y costas." }
+      };
+
+      const infoCard = document.getElementById('info-card');
+      const cardTitle = document.getElementById('card-title');
+      const cardDesc = document.getElementById('card-desc');
+      const targets = document.querySelectorAll('[mindar-image-target]');
+
+      targets.forEach(target => {
+        target.addEventListener('targetFound', () => {
+          const id = target.getAttribute('data-species');
+          if (speciesData[id]) {
+            cardTitle.innerText = speciesData[id].title;
+            cardDesc.innerText = speciesData[id].desc;
+            infoCard.style.display = 'block';
+          }
+        });
+
+        target.addEventListener('targetLost', () => {
+          infoCard.style.display = 'none';
+        });
+      });
+    </script>
   </body>
 </html>
