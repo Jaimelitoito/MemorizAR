@@ -59,7 +59,11 @@
     </div>
 
     <a-scene 
-      mindar-image="imageTargetSrc: ./targets.mind; maxTrack: 2;" 
+      mindar-image="imageTargetSrc: ./targets.mind; maxTrack: 2; filterMinCF: 0.0001; filterBeta: 0.001;" 
+      color-space="sRGB" 
+      renderer="colorManagement: true, physicallyCorrectLights" 
+      vr-mode-ui="enabled: false" 
+      device-orientation-permission-ui="enabled: false"> 
       color-space="sRGB" 
       renderer="colorManagement: true, physicallyCorrectLights" 
       vr-mode-ui="enabled: false" 
@@ -89,82 +93,82 @@
 
       <!-- 0: GUANACO -->
       <a-entity mindar-image-target="targetIndex: 0" data-species="0">
-        <a-gltf-model src="#mod-guanaco" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-guanaco" position="0 0 0" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 1: NIRRE -->
       <a-entity mindar-image-target="targetIndex: 1" data-species="1">
-        <a-gltf-model src="#mod-nirre" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-nirre" position="0 0 0" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 2: ZAPATITO DE LA VIRGEN -->
       <a-entity mindar-image-target="targetIndex: 2" data-species="2">
-        <a-gltf-model src="#mod-zapatito" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-zapatito" position="0 0 0" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 3: LUPINO -->
       <a-entity mindar-image-target="targetIndex: 3" data-species="3">
-        <a-gltf-model src="#mod-lupino" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-lupino" position="0 0 0" scale="7 7 7" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 4: CANELO -->
       <a-entity mindar-image-target="targetIndex: 4" data-species="4">
-        <a-gltf-model src="#mod-canelo" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-canelo" position="0 0 0" scale="7 7 7" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 5: CHILCO -->
       <a-entity mindar-image-target="targetIndex: 5" data-species="5">
-        <a-gltf-model src="#mod-chilco" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-chilco" position="0 0 0" scale="7 7 7" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 6: CALAFATE -->
       <a-entity mindar-image-target="targetIndex: 6" data-species="6">
-        <a-gltf-model src="#mod-calafate" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-calafate" position="0 0 0" scale="7 7 7" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 7: ARMADILLO -->
       <a-entity mindar-image-target="targetIndex: 7" data-species="7">
-        <a-gltf-model src="#mod-armadillo" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-armadillo" position="0 0 0" scale="4.5 4.5 4.5" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 8: LOBO MARINO -->
       <a-entity mindar-image-target="targetIndex: 8" data-species="8">
-        <a-gltf-model src="#mod-lobo" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-lobo" position="0 0 0" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 9: CARPINTERO NEGRO -->
       <a-entity mindar-image-target="targetIndex: 9" data-species="9">
-        <a-gltf-model src="#mod-carpintero" position="0 0 0.2" scale="2 2 2" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-carpintero" position="0 0 0" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 10: CHINGUE -->
       <a-entity mindar-image-target="targetIndex: 10" data-species="10">
-        <a-gltf-model src="#mod-chingue" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-chingue" position="0 0 0" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 11: ZORRO -->
       <a-entity mindar-image-target="targetIndex: 11" data-species="11">
-        <a-gltf-model src="#mod-zorro" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-zorro" position="0 0 0" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 12: CONDOR -->
       <a-entity mindar-image-target="targetIndex: 12" data-species="12">
-        <a-gltf-model src="#mod-condor" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-condor" position="0 0 0" scale="7 7 7" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 13: BALLENA -->
       <a-entity mindar-image-target="targetIndex: 13" data-species="13">
-        <a-gltf-model src="#mod-ballena" position="0 0 0.35" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-ballena" position="0 0 0" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 14: PUMA -->
       <a-entity mindar-image-target="targetIndex: 14" data-species="14">
-        <a-gltf-model src="#mod-puma" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-puma" position="0 0 0" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 15: PINGUINO -->
       <a-entity mindar-image-target="targetIndex: 15" data-species="15">
-        <a-gltf-model src="#mod-pinguino" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-pinguino" position="0 0 0" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
     </a-scene>
