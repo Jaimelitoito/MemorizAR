@@ -12,7 +12,7 @@
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       }
 
-      /* Panel de información fijo en la pantalla */
+      /* Panel de información fijo en la pantalla del celular */
       #info-card {
         position: fixed;
         bottom: 24px;
@@ -28,7 +28,7 @@
         border-radius: 16px;
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
         z-index: 1000;
-        display: none; /* Se oculta por defecto hasta detectar una carta */
+        display: none;
         box-sizing: border-box;
         pointer-events: none;
         transition: opacity 0.25s ease;
@@ -52,7 +52,7 @@
   </head>
   <body>
 
-    <!-- Panel 2D superpuesto en el visor del celular -->
+    <!-- Tarjeta informativa superpuesta -->
     <div id="info-card">
       <h3 id="card-title">Especie</h3>
       <p id="card-desc">Descripción de la biodiversidad.</p>
@@ -65,6 +65,7 @@
       vr-mode-ui="enabled: false" 
       device-orientation-permission-ui="enabled: false">
       
+      <!-- CARGA DE MODELOS 3D -->
       <a-assets>
         <a-asset-item id="mod-guanaco" src="./guanaco.glb"></a-asset-item>
         <a-asset-item id="mod-nirre" src="./nirre.glb"></a-asset-item>
@@ -88,87 +89,87 @@
 
       <!-- 0: GUANACO -->
       <a-entity mindar-image-target="targetIndex: 0" data-species="0">
-        <a-gltf-model src="#mod-guanaco" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-guanaco" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 1: NIRRE -->
       <a-entity mindar-image-target="targetIndex: 1" data-species="1">
-        <a-gltf-model src="#mod-nirre" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-nirre" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 2: ZAPATITO DE LA VIRGEN -->
       <a-entity mindar-image-target="targetIndex: 2" data-species="2">
-        <a-gltf-model src="#mod-zapatito" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-zapatito" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 3: LUPINO -->
       <a-entity mindar-image-target="targetIndex: 3" data-species="3">
-        <a-gltf-model src="#mod-lupino" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-lupino" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 4: CANELO -->
       <a-entity mindar-image-target="targetIndex: 4" data-species="4">
-        <a-gltf-model src="#mod-canelo" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-canelo" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 5: CHILCO -->
       <a-entity mindar-image-target="targetIndex: 5" data-species="5">
-        <a-gltf-model src="#mod-chilco" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-chilco" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 6: CALAFATE -->
       <a-entity mindar-image-target="targetIndex: 6" data-species="6">
-        <a-gltf-model src="#mod-calafate" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-calafate" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 7: ARMADILLO -->
       <a-entity mindar-image-target="targetIndex: 7" data-species="7">
-        <a-gltf-model src="#mod-armadillo" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-armadillo" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 8: LOBO MARINO -->
       <a-entity mindar-image-target="targetIndex: 8" data-species="8">
-        <a-gltf-model src="#mod-lobo" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-lobo" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
-      <!-- 9: CARPINTERO NEGRO (Escala reducida para corregir desproporción) -->
+      <!-- 9: CARPINTERO NEGRO -->
       <a-entity mindar-image-target="targetIndex: 9" data-species="9">
-        <a-gltf-model src="#mod-carpintero" position="0 0 0.1" scale="0.35 0.35 0.35" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-carpintero" position="0 0 0.2" scale="0.88 0.88 0.88" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 10: CHINGUE -->
       <a-entity mindar-image-target="targetIndex: 10" data-species="10">
-        <a-gltf-model src="#mod-chingue" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-chingue" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
-      <!-- 11: ZORRO (Escalado aumentado para ocupar la tarjeta completa) -->
+      <!-- 11: ZORRO -->
       <a-entity mindar-image-target="targetIndex: 11" data-species="11">
-        <a-gltf-model src="#mod-zorro" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-zorro" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 12: CONDOR -->
       <a-entity mindar-image-target="targetIndex: 12" data-species="12">
-        <a-gltf-model src="#mod-condor" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-condor" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 13: BALLENA -->
       <a-entity mindar-image-target="targetIndex: 13" data-species="13">
-        <a-gltf-model src="#mod-ballena" position="0 0 0.25" scale="0.1 0.1 0.1" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-ballena" position="0 0 0.35" scale="0.18 0.18 0.18" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 14: PUMA -->
       <a-entity mindar-image-target="targetIndex: 14" data-species="14">
-        <a-gltf-model src="#mod-puma" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-puma" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 15: PINGUINO -->
       <a-entity mindar-image-target="targetIndex: 15" data-species="15">
-        <a-gltf-model src="#mod-pinguino" position="0 0 0.15" scale="3.5 3.5 3.5" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-pinguino" position="0 0 0.2" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
     </a-scene>
 
-    <!-- CONTROLADOR JAVASCRIPT DEL PANEL 2D -->
+    <!-- CONTROLADOR JAVASCRIPT DEL PANEL -->
     <script>
       const speciesData = {
         0: { title: "Guanaco", desc: "Mamífero autóctono de la estepa patagónica. Herbívoro de gran velocidad y agilidad." },
@@ -183,7 +184,7 @@
         9: { title: "Carpintero Negro", desc: "El ave carpintera más grande de Chile. Habita en bosques antiguos de lengas y coigües." },
         10: { title: "Chingue Patagónico", desc: "Pequeño carnívoro de hábitos nocturnos. Se defiende expulsando un líquido de fuerte olor." },
         11: { title: "Zorro Culpeo", desc: "El cánido silvestre más grande del territorio chileno. Cazador solitario y oportunista." },
-        12: { title: "Cóndor Andino", desc: "Ame imponente que surca los cielos cordilleranos. Carroñero fundamental para el equilibrio ecológico." },
+        12: { title: "Cóndor Andino", desc: "Ave imponente que surca los cielos cordilleranos. Carroñero fundamental para el equilibrio ecológico." },
         13: { title: "Ballena Franca Austral", desc: "Monumento natural marino. Frecuenta las aguas del Estrecho de Magallanes y canales fueguinos." },
         14: { title: "Puma", desc: "El felino más grande de la Patagonia. Depredador tope de hábitos sigilosos y gran fuerza." },
         15: { title: "Pingüino de Magallanes", desc: "Ave marina experta en el buceo submarino. Forma nutridas colonias reproductivas en islas y costas." }
