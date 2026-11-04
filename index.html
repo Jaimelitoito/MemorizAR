@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>MemorizAR - Keikruk</title>
 
-    <!-- Compatibilidad PWA e iOS (Safari WebKit) -->
+    <!-- Compatibilidad PWA e iOS -->
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#0b1b2b">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,26 +14,9 @@
     <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
     <link rel="apple-touch-icon" href="./icon-192.png">
 
-    <!-- Librerías de Realidad Aumentada -->
+    <!-- Librerías AR -->
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-
-    <!-- Parche para cámara en iOS / Safari -->
-    <script>
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          mutation.addedNodes.forEach((node) => {
-            if (node.tagName === 'VIDEO') {
-              node.setAttribute('playsinline', '');
-              node.setAttribute('webkit-playsinline', '');
-              node.setAttribute('autoplay', '');
-              node.setAttribute('muted', '');
-            }
-          });
-        });
-      });
-      observer.observe(document.documentElement, { childList: true, subtree: true });
-    </script>
 
     <style>
       body { 
@@ -42,7 +25,6 @@
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       }
 
-      /* Panel de información fijo en la pantalla */
       #info-card {
         position: fixed;
         bottom: 24px;
@@ -82,10 +64,9 @@
   </head>
   <body>
 
-    <!-- Tarjeta informativa superpuesta -->
     <div id="info-card">
       <h3 id="card-title">Especie</h3>
-      <p id="card-desc">Descripción de la biodiversidad.</p>
+      <p id="card-desc">Descripción</p>
     </div>
 
     <a-scene 
@@ -95,8 +76,7 @@
       vr-mode-ui="enabled: false" 
       device-orientation-permission-ui="enabled: false">
       
-      <!-- CARGA DE MODELOS 3D -->
-      <a-assets>
+      <a-assets timeout="10000">
         <a-asset-item id="mod-guanaco" src="./guanaco.glb"></a-asset-item>
         <a-asset-item id="mod-nirre" src="./nirre.glb"></a-asset-item>
         <a-asset-item id="mod-zapatito" src="./zapatito.glb"></a-asset-item>
@@ -122,37 +102,37 @@
         <a-gltf-model src="#mod-guanaco" position="0 0 0" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
-      <!-- 1: NIRRE (Vegetación) -->
+      <!-- 1: NIRRE -->
       <a-entity mindar-image-target="targetIndex: 1" data-species="1">
         <a-gltf-model src="#mod-nirre" position="0 0 0" scale="7 7 7" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
-      <!-- 2: ZAPATITO DE LA VIRGEN (Vegetación) -->
+      <!-- 2: ZAPATITO DE LA VIRGEN -->
       <a-entity mindar-image-target="targetIndex: 2" data-species="2">
         <a-gltf-model src="#mod-zapatito" position="0 0 0" scale="7 7 7" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
-      <!-- 3: LUPINO (Vegetación) -->
+      <!-- 3: LUPINO -->
       <a-entity mindar-image-target="targetIndex: 3" data-species="3">
         <a-gltf-model src="#mod-lupino" position="0 0 0" scale="7 7 7" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
-      <!-- 4: CANELO (Vegetación) -->
+      <!-- 4: CANELO -->
       <a-entity mindar-image-target="targetIndex: 4" data-species="4">
         <a-gltf-model src="#mod-canelo" position="0 0 0" scale="7 7 7" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
-      <!-- 5: CHILCO (Vegetación) -->
+      <!-- 5: CHILCO -->
       <a-entity mindar-image-target="targetIndex: 5" data-species="5">
         <a-gltf-model src="#mod-chilco" position="0 0 0" scale="7 7 7" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
-      <!-- 6: CALAFATE (Vegetación) -->
+      <!-- 6: CALAFATE -->
       <a-entity mindar-image-target="targetIndex: 6" data-species="6">
         <a-gltf-model src="#mod-calafate" position="0 0 0" scale="7 7 7" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
-      <!-- 7: ARMADILLO (Escala ajustada a 4.5) -->
+      <!-- 7: ARMADILLO -->
       <a-entity mindar-image-target="targetIndex: 7" data-species="7">
         <a-gltf-model src="#mod-armadillo" position="0 0 0" scale="4.5 4.5 4.5" rotation="90 0 0"></a-gltf-model>
       </a-entity>
@@ -199,73 +179,42 @@
 
     </a-scene>
 
-    <!-- CONTROLADOR JAVASCRIPT DEL PANEL 2D -->
     <script>
+      // Compatibilidad de video para iOS Safari
+      document.addEventListener("DOMContentLoaded", () => {
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+              if (node.tagName === 'VIDEO') {
+                node.setAttribute('playsinline', '');
+                node.setAttribute('webkit-playsinline', '');
+                node.setAttribute('autoplay', '');
+                node.setAttribute('muted', '');
+              }
+            });
+          });
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+      });
+
+      // Datos curiosos
       const speciesData = {
-        0: { 
-          title: "¿Sabías que...? Guanaco", 
-          desc: "¡Sus pestañas largas no son de adorno! Las usan para proteger sus ojos del polvo y los fuertes vientos de la estepa patagónica. Además, pueden correr hasta a 60 km/h." 
-        },
-        1: { 
-          title: "¿Sabías que...? Ñirre", 
-          desc: "Es un verdadero sobreviviente del viento austral: en zonas muy expuestas no crece derecho, sino retorcido y pegado al suelo formando el famoso 'bosque enano'." 
-        },
-        2: { 
-          title: "¿Sabías que...? Zapatito de la Virgen", 
-          desc: "Su flor tiene una forma de 'globo' o zapatilla diseñada específicamente para que los abejorros queden atrapados unos segundos y salgan cubiertos de polen." 
-        },
-        3: { 
-          title: "¿Sabías que...? Lupino", 
-          desc: "Aunque hoy pinta de morado y azul los caminos de la Patagonia, en realidad no es nativo: llegó desde el hemisferio norte y coloniza muy rápido terrenos pobres en nutrientes." 
-        },
-        4: { 
-          title: "¿Sabías que...? Canelo", 
-          desc: "Es el árbol sagrado mapuche y yagán. Sus hojas y corteza tienen tanta vitamina C que los antiguos navegantes las mascaban para evitar la temida enfermedad del escorbuto." 
-        },
-        5: { 
-          title: "¿Sabías que...? Chilco", 
-          desc: "Sus flores colgantes son el manjar preferido del picaflor rubí. Además, ¡sus frutos morados y alargados son totalmente comestibles y muy dulces!" 
-        },
-        6: { 
-          title: "¿Sabías que...? Calafate", 
-          desc: "Dice la leyenda que 'quien come calafate, siempre regresa a la Patagonia'. Sus espinas nacen en grupos de a tres y sus frutos morados son potentes antioxidantes." 
-        },
-        7: { 
-          title: "¿Sabías que...? Armadillo (Peludo)", 
-          desc: "A diferencia de otros armadillos, este tiene pelo largo entre sus placas óseas para soportar el frío austral. ¡Puede excavar una madriguera completa en menos de 2 minutos!" 
-        },
-        8: { 
-          title: "¿Sabías que...? Lobo Marino", 
-          desc: "Pueden sumergirse a más de 100 metros de profundidad y aguantar la respiración bajo el mar helado por casi 15 minutos mientras persiguen peces y calamares." 
-        },
-        9: { 
-          title: "¿Sabías que...? Carpintero Negro", 
-          desc: "Su cráneo tiene un sistema de 'amortiguación' biológico único: golpea la madera hasta 20 veces por segundo sin sufrir dolores de cabeza ni daño cerebral." 
-        },
-        10: { 
-          title: "¿Sabías que...? Chingue Patagónico", 
-          desc: "Su spray oloroso defensivo es tan potente que puede alcanzar hasta 3 metros de distancia y causar ceguera temporal a depredadores como zorros y pumas." 
-        },
-        11: { 
-          title: "¿Sabías que...? Zorro Culpeo", 
-          desc: "Es el segundo carnívoro más grande de Magallanes tras el puma. Su cola gruesa y esponjosa no es solo equilibrio: le sirve de frazada para taparse la nariz al dormir." 
-        },
-        12: { 
-          title: "¿Sabías que...? Cóndor Andino", 
-          desc: "Con sus alas extendidas alcanza los 3 metros. Gracias a su planeo aprovecha las corrientes de aire caliente y puede volar cientos de kilómetros sin aletear casi nada." 
-        },
-        13: { 
-          title: "¿Sabías que...? Ballena Franca Austral", 
-          desc: "Cada ballena tiene marcas blancas y rugosas llamadas callosidades en su cabeza que son únicas, ¡iguales a una huella dactilar humana que permite identificarlas una a una!" 
-        },
-        14: { 
-          title: "¿Sabías que...? Puma", 
-          desc: "A pesar de su gran tamaño, no ruge como un león: ronronea, maúlla y silba como un gato doméstico gigante. Además, ¡puede saltar hasta 5 metros de alto!" 
-        },
-        15: { 
-          title: "¿Sabías que...? Pingüino de Magallanes", 
-          desc: "Beben agua salada de mar y expulsan el exceso de sal por una glándula especial ubicada detrás de sus ojos, simulando que estuvieran constantemente 'estornudando'." 
-        }
+        0: { title: "¿Sabías que...? Guanaco", desc: "Sus pestañas largas protegen sus ojos del polvo y fuertes vientos patagónicos. Además, corren hasta a 60 km/h." },
+        1: { title: "¿Sabías que...? Ñirre", desc: "En zonas de viento extremo crece pegado al suelo y retorcido, formando el característico bosque enano." },
+        2: { title: "¿Sabías que...? Zapatito de la Virgen", desc: "Su flor con forma de zapatilla atrapa abejorros unos segundos para asegurar que salgan cubiertos de polen." },
+        3: { title: "¿Sabías que...? Lupino", desc: "Pinta de tonos azules los caminos patagónicos, pero es introducida: prospera con gran facilidad en suelos pobres." },
+        4: { title: "¿Sabías que...? Canelo", desc: "Árbol sagrado mapuche y yagán. Sus hojas ricas en vitamina C eran mascadas por navegantes para prevenir el escorbuto." },
+        5: { title: "¿Sabías que...? Chilco", desc: "Flor favorita del picaflor rubí. Sus frutos morados colgantes son nativos, dulces y completamente comestibles." },
+        6: { title: "¿Sabías que...? Calafate", desc: "Dice la tradición que quien come su fruto siempre vuelve a la Patagonia. Posee espinas triples y gran poder antioxidante." },
+        7: { title: "¿Sabías que...? Armadillo (Peludo)", desc: "Posee pelos largos entre sus placas óseas para aislarse del frío austral. Excava madrigueras en menos de 2 minutos." },
+        8: { title: "¿Sabías que...? Lobo Marino", desc: "Se sumerge a más de 100 metros de profundidad y tolera hasta 15 minutos sin respirar en aguas heladas cazando peces." },
+        9: { title: "¿Sabías que...? Carpintero Negro", desc: "Su cráneo tiene un sistema de amortiguación esponjoso: golpea la madera 20 veces por segundo sin daño cerebral." },
+        10: { title: "¿Sabías que...? Chingue Patagónico", desc: "Su líquido defensivo alcanza 3 metros de distancia y produce ceguera temporal a cazadores como el zorro y el puma." },
+        11: { title: "¿Sabías que...? Zorro Culpeo", desc: "El segundo mamífero carnívoro más grande de Magallanes tras el puma. Usa su densa cola como manta al dormir." },
+        12: { title: "¿Sabías que...? Cóndor Andino", desc: "Llega a 3 metros de envergadura alar. Planea en corrientes de aire recorriendo grandes distancias casi sin aletear." },
+        13: { title: "¿Sabías que...? Ballena Franca Austral", desc: "Las callosidades blancas en su cabeza son únicas en cada ejemplar, funcionando exactamente como una huella dactilar." },
+        14: { title: "¿Sabías que...? Puma", desc: "No ruge: emite ronroneos y silbidos agudos. Es capaz de dar saltos verticales de hasta 5 metros sobre barrancos." },
+        15: { title: "¿Sabías que...? Pingüino de Magallanes", desc: "Filtra el agua de mar gracias a una glándula detrás de sus ojos, expulsando la sal sobrante en pequeños estornudos." }
       };
 
       const infoCard = document.getElementById('info-card');
@@ -287,15 +236,12 @@
           infoCard.style.display = 'none';
         });
       });
-    </script>
 
-    <!-- REGISTRO DEL SERVICE WORKER (PWA) -->
-    <script>
+      // Registro Service Worker PWA
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('./sw.js')
-            .then(() => console.log('PWA lista y archivos precargados en caché local'))
-            .catch((err) => console.error('Error al registrar Service Worker:', err));
+            .catch((err) => console.error('SW Error:', err));
         });
       }
     </script>
