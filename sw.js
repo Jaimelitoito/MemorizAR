@@ -22,6 +22,8 @@ const ASSETS_TO_CACHE = [
   './ballena.glb',
   './puma.glb',
   './pinguino.glb',
+  './icon-192.png',
+  './icon-512.png',
   'https://aframe.io/releases/1.4.2/aframe.min.js',
   'https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js'
 ];

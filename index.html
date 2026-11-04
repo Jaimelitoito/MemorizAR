@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>MemorizAR - Keikruk</title>
+
+    <!-- Enlaces PWA e Íconos -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#0b1b2b">
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+
+    <!-- Librerías de Realidad Aumentada -->
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
     <style>
       body { 
         margin: 0; 
@@ -12,7 +22,7 @@
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       }
 
-      /* Panel de información fijo en la pantalla del celular */
+      /* Panel de información fijo en la pantalla del teléfono */
       #info-card {
         position: fixed;
         bottom: 24px;
@@ -94,12 +104,12 @@
 
       <!-- 1: NIRRE -->
       <a-entity mindar-image-target="targetIndex: 1" data-species="1">
-        <a-gltf-model src="#mod-nirre" position="0 0 0" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-nirre" position="0 0 0" scale="7 7 7" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 2: ZAPATITO DE LA VIRGEN -->
       <a-entity mindar-image-target="targetIndex: 2" data-species="2">
-        <a-gltf-model src="#mod-zapatito" position="0 0 0" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-zapatito" position="0 0 0" scale="7 7 7" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 3: LUPINO -->
@@ -149,7 +159,7 @@
 
       <!-- 12: CONDOR -->
       <a-entity mindar-image-target="targetIndex: 12" data-species="12">
-        <a-gltf-model src="#mod-condor" position="0 0 0" scale="7 7 7" rotation="90 0 0"></a-gltf-model>
+        <a-gltf-model src="#mod-condor" position="0 0 0" scale="6.1 6.1 6.1" rotation="90 0 0"></a-gltf-model>
       </a-entity>
 
       <!-- 13: BALLENA -->
@@ -169,7 +179,7 @@
 
     </a-scene>
 
-    <!-- CONTROLADOR JAVASCRIPT DEL PANEL -->
+    <!-- CONTROLADOR JAVASCRIPT DEL PANEL 2D -->
     <script>
       const speciesData = {
         0: { title: "Guanaco", desc: "Mamífero autóctono de la estepa patagónica. Herbívoro de gran velocidad y agilidad." },
@@ -209,6 +219,17 @@
           infoCard.style.display = 'none';
         });
       });
+    </script>
+
+    <!-- REGISTRO DEL SERVICE WORKER (PWA) -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js')
+            .then(() => console.log('PWA lista y archivos precargados en caché local'))
+            .catch((err) => console.error('Error al registrar Service Worker:', err));
+        });
+      }
     </script>
   </body>
 </html>
